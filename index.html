@@ -343,7 +343,6 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
       if (feature.properties.form == "Visual art") { id = 0; }
       else if (feature.properties.forms == "Visual art; Storytelling; Writing")  { id = 1; }
       else if (feature.properties.forms == "Visual art; Music & Sound; Movement; Writing")  { id = 2; }
-      else if (feature.properties.forms == "Other")  { id = 3; }
       return L.marker(latlng, {icon: L.divIcon({className: 'fa-solid fa-circle marker-color-' + (id + 1).toString() })});
   },
   attribution: 'Developed by Josh Platt'
@@ -410,7 +409,6 @@ legend.onAdd = function () {
       div.innerHTML += '<i class="fa-solid fa-circle marker-color-1"></i><p>Visual</p>';
       div.innerHTML += '<i class="fa-solid fa-circle marker-color-2"></i><p>Visual, Storytelling, Writing</p>';
       div.innerHTML += '<i class="fa-solid fa-circle marker-color-3"></i><p>Visual, Music/Sound, Movement</p>';
-      div.innerHTML += '<i class="fa-solid fa-circle marker-color-3"></i><p>Other</p>';
     return div;
 };
 
