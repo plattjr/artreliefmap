@@ -585,7 +585,7 @@ function zoomToFeature(e) {
     mymap.fitBounds(e.target.getBounds());
   }
 
-var states = L.geoJson.ajax("assets/states.json", {
+var states = L.geoJson.ajax("assets/ecolvl3.geojson", {
   onEachFeature: function (feature, layer) {
       layer.bindTooltip(feature.properties.US_L3NAME);
       layer.on ({click: zoomToFeature});
