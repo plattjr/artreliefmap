@@ -555,11 +555,20 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
   attribution: 'Developed by Josh Platt'
 }).addTo(mymap);
 
+colors = chroma.scale('Greys').colors(5);
+
+function setColor(density) {
+    var id = 0;
+    if (density > 4) { id = 1; }
+    else if (density > 2 && density <= 4) { id = 2; }
+    else { id = 3; }
+    return colors[id];
+}
 
 // 7. Add Counties
 function style(feature) {
     return {
-      fillColor: 0,
+      fillColor: setColor(feature.properties.Dams), // or use: setColor(feature.properties.Dams),
 	fillopacity: 0,
 	weight: 1,
       opacity: 0.3,
@@ -582,8 +591,16 @@ var counties = L.geoJson.ajax("assets/counties.geojson", {
 
 // 8. Add States
 
-// var states = L.geoJson.ajax("assets/states.geojson", {
-// }).addTo(mymap);
+var states = L.geoJson.ajax("assets/states.geojson", {
+	style: function(feature) {
+		return {
+			color: "#44B2E5",
+			weight: 6,
+			opacity: 0.8,
+			dashArray: "10, 10"
+		}
+	}
+}).addTo(mymap);
     
 // 9. Create Leaflet Control Object for Legend
 var legend = L.control({position: 'bottomright'});
