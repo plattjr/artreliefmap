@@ -558,6 +558,12 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
   attribution: 'Developed by Josh Platt'
 }).addTo(mymap);
 
+
+var states = L.geoJson.ajax("assets/states.json", {
+  onEachFeature: function (feature, layer) {
+  },
+    style: style
+}).addTo(mymap);
     
 // 9. Create Leaflet Control Object for Legend
 var legend = L.control({position: 'bottomright'});
