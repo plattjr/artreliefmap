@@ -559,7 +559,7 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
 }).addTo(mymap);
 
 
-
+// 7. Add Counties
 function style(feature) {
     return {
       fillColor: 0,
@@ -575,10 +575,29 @@ function zoomToFeature(e) {
     mymap.fitBounds(e.target.getBounds());
   }
 
-var states = L.geoJson.ajax("assets/states.geojson", {
+var counties = L.geoJson.ajax("assets/counties.geojson", {
   onEachFeature: function (feature, layer) {
       layer.bindTooltip(feature.properties.NAME);
       layer.on ({click: zoomToFeature});
+  },
+    style: style
+}).addTo(mymap);
+
+// 8. Add States
+function style(feature) {
+    return {
+      fillColor: 0,
+      fillOpacity: 0,
+      weight: 2,
+      opacity: 0.7,
+      color: 'whitesmoke',
+      dashArray: '0'
+    };
+}
+
+var states = L.geoJson.ajax("assets/states.geojson", {
+  onEachFeature: function (feature, layer) {
+      layer.bindTooltip(feature.properties.NAME);
   },
     style: style
 }).addTo(mymap);
