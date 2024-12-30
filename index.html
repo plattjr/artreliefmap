@@ -421,12 +421,9 @@
               <h3>How to Utilize the Removal Database</h3>
             </div>
             <div class="modal-body">
-              <p>The default boundaries within the United States are level 3 ecoregions. Hover over ecoregions to see names and click to zoom to the area. If you wish to change
-                boundary type, select between ecoregions, watersheds, and states in the top right of the screen.</p>
-              <p>After zooming to the ecoregion of interest (or before), click on points to see information regarding specific dam removals.  Data includes dam characteristics,
-                reasons for removal, links to associated peer-reviewed studies, and more.</p>
-              <p>Future products in the database will include information from engineering reports, river rights and the politics of removal by state, and watershed information at
-              the the HUC 8 and HUC 12 extents.</p>
+              <p>Solid bold lines represent state boundaries and thinner dotted lines represent counties. Hover over counties to see names and click to zoom to your area of interest. </p>
+              <p>After zooming to the county of interest (or before), click on points to see information regarding specific art-based programming. Data includes location of programming,
+                art form, personal narratives, outcomes, images, contact information, and more.</p>
             </div>
             <div class="modal-footer">
             </div>
@@ -518,7 +515,7 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 }).addTo(mymap);
 
 // Null variable that will hold dams
-var dams = null;
+var points = null;
 
 var colors = chroma.scale('Dark2').mode('lch').colors(4);
 
@@ -565,7 +562,7 @@ function style(feature) {
       fillcolor: 0,
 	fillopacity: 0,
 	weight: 1,
-      opacity: 0.7,
+      opacity: 0.3,
       color: 'whitesmoke',
       dashArray: '1'
     };
