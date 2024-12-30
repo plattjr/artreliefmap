@@ -337,13 +337,12 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
     );
   },
 
-  // Sets color for points by study type
+  // Sets color for points by art form
   pointToLayer: function(feature, latlng) {
       var id = 0;
-      if (feature.properties.Study == "Biological") { id = 0; }
-      else if (feature.properties.Study == "Biological & Physical")  { id = 1; }
-      else if (feature.properties.Study == "Physical")  { id = 2; }
-      else if (feature.properties.Study == "Water Quality")  { id = 3; }
+      if (feature.properties.Study == "Visual art") { id = 0; }
+      else if (feature.properties.Study == "Visual art; Storytelling; Writing")  { id = 1; }
+      else if (feature.properties.Study == "Visual art; Music & Sound; Movement; Writing")  { id = 2; }
       return L.marker(latlng, {icon: L.divIcon({className: 'fa-solid fa-circle marker-color-' + (id + 1).toString() })});
   },
   attribution: 'Developed by Josh Platt'
@@ -406,11 +405,10 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function () {
 
     var div = L.DomUtil.create('div', 'legend');
-      div.innerHTML += '<b>Study Type<b><br />';
-      div.innerHTML += '<i class="fa-solid fa-circle marker-color-1"></i><p>Biological</p>';
-      div.innerHTML += '<i class="fa-solid fa-circle marker-color-2"></i><p>Biological & Physical</p>';
-      div.innerHTML += '<i class="fa-solid fa-circle marker-color-3"></i><p>Physical</p>';
-      div.innerHTML += '<i class="fa-solid fa-circle marker-color-4"></i><p>Water Quality</p>';
+      div.innerHTML += '<b>Art Form<b><br />';
+      div.innerHTML += '<i class="fa-solid fa-circle marker-color-1"></i><p>Visual/p>';
+      div.innerHTML += '<i class="fa-solid fa-circle marker-color-2"></i><p>Visual, Storytelling, Writing</p>';
+      div.innerHTML += '<i class="fa-solid fa-circle marker-color-3"></i><p>Visual, Music/Sound, Movement</p>';
     return div;
 };
 
