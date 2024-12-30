@@ -584,7 +584,7 @@ var counties = L.geoJson.ajax("assets/counties.geojson", {
 }).addTo(mymap);
 
 // 8. Add States
-function style2(feature) {
+function style2(feature2) {
     return {
       fillColor: 0,
       fillOpacity: 0,
@@ -596,7 +596,7 @@ function style2(feature) {
 }
 
 var states = L.geoJson.ajax("assets/states.geojson", {
-  onEachFeature: function (feature, layer) {
+  onEachFeature: function (feature2, layer) {
     style: style2
 }).addTo(mymap);
     
