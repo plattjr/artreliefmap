@@ -530,7 +530,7 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
 
   // The content of the popup window gives dam characteristics, etc.
   onEachFeature: function (feature, layer) {
-      layer.bindPopup("The " + "<b>" + feature.properties.Name + "</b>" + " was removed from the " +
+      layer.bindPopup("Contributor: " + "<b>" + feature.properties.mame + "</b>" + " was removed from the " +
       "<b>" + feature.properties.River + "</b>" + " in " +
       "<b>" + feature.properties.Location + "</b>" + " during " + "<b>" + feature.properties.YearRemoved + "</b>" + ". <BR><BR> The former dam was " +
       "<b>" + feature.properties.Height + "</b>" + " meters tall and " + "<b>" + feature.properties.Width + "</b>" + " meters wide, impounding " +
