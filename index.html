@@ -587,14 +587,15 @@ var counties = L.geoJson.ajax("assets/counties.geojson", {
 
 var states = L.geoJson.ajax("assets/states.geojson", {
     style: function(feature) {
-			    return {
-					fillcolor: 0,
-					weight: 1,
-					opacity: 0.8,
-				    	color: 'whitesmoke',
-					dashArray: "0"
-				}
-			}
+	return {
+		fillcolor: 0,
+		fillopacity: 0,
+		weight: 2,
+		opacity: 0,
+		color: 'whitesmoke',
+		dashArray: "0"
+		}
+	}
 }).addTo(mymap);
     
 // 9. Create Leaflet Control Object for Legend
