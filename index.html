@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Dam Removal Database</title>
+    <title>Hurricane Helene Art Relief Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -397,7 +397,7 @@
 <div id="map"></div>
 
 <!-- logo will go here -->
-<h1><img src="assets/arlogo.png" width="300"></h1>
+<h1><img src="assets/webmaplogo.svg" width="300"></h1>
 
 <!-- left section bar -->
   <section>
@@ -541,8 +541,8 @@ for (i = 0; i < 5; i++) {
 
 
 
-// Get GeoJSON for dams
-var dams = L.geoJson.ajax("assets/studied_dams.geojson",{
+// Get GeoJSON for points
+var dams = L.geoJson.ajax("assets/points.geojson",{
 
   // The content of the popup window gives dam characteristics, etc.
   onEachFeature: function (feature, layer) {
