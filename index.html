@@ -589,15 +589,17 @@ var counties = L.geoJson.ajax("assets/counties.geojson", {
     style: style
 }).addTo(mymap);
 
+	
 // 8. Add States
 
 var states = L.geoJson.ajax("assets/states.geojson", {
 	style: function(feature) {
 		return {
-			color: "#44B2E5",
-			weight: 6,
+      			fillColor: setColor(feature.properties.Dams), // or use: setColor(feature.properties.Dams),
+			fillopacity: 0,
+			weight: 3,
 			opacity: 0.8,
-			dashArray: "10, 10"
+			dashArray: "0"
 		}
 	}
 }).addTo(mymap);
