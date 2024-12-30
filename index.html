@@ -507,7 +507,7 @@
     // 1. Create a map object.
     var mymap = L.map('map', {
       center: [36.02442034093456, -81.90798351157177],
-      zoom: 9, //starting zoom level of the map
+      zoom: 8, //starting zoom level of the map
       maxZoom: 18,//maximum zoom level
       minZoom: 0,//minimum zoom level
       detectRetina: true // detect whether the sceen is high resolution or not.
@@ -559,8 +559,14 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
 }).addTo(mymap);
 
 
-var states = L.geoJson.ajax("assets/states.json", {
+function zoomToFeature(e) {
+    mymap.fitBounds(e.target.getBounds());
+  }
+
+var states = L.geoJson.ajax("assets/states.geojson", {
   onEachFeature: function (feature, layer) {
+      layer.bindTooltip(feature.properties.NAME);
+      layer.on ({click: zoomToFeature});
   },
     style: style
 }).addTo(mymap);
