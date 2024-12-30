@@ -584,7 +584,7 @@ var counties = L.geoJson.ajax("assets/counties.geojson", {
 }).addTo(mymap);
 
 // 8. Add States
-function style(feature) {
+function style2(feature) {
     return {
       fillColor: 0,
       fillOpacity: 0,
@@ -597,9 +597,7 @@ function style(feature) {
 
 var states = L.geoJson.ajax("assets/states.geojson", {
   onEachFeature: function (feature, layer) {
-      layer.bindTooltip(feature.properties.NAME);
-  },
-    style: style
+    style: style2
 }).addTo(mymap);
     
 // 9. Create Leaflet Control Object for Legend
