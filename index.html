@@ -326,14 +326,18 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
 
   // The content of the popup window gives dam characteristics, etc.
   onEachFeature: function (feature, layer) {
-      layer.bindPopup("Contributor: " + "<b>" + feature.properties.name + "</b>" + " was removed from the " +
-      "<b>" + feature.properties.River + "</b>" + " in " +
-      "<b>" + feature.properties.Location + "</b>" + " during " + "<b>" + feature.properties.YearRemoved + "</b>" + ". <BR><BR> The former dam was " +
-      "<b>" + feature.properties.Height + "</b>" + " meters tall and " + "<b>" + feature.properties.Width + "</b>" + " meters wide, impounding " +
-      "<b>" + feature.properties.ReservoirVolume + "</b>" + " cubic meters of water. The reason for removal stemmed from " +
-      "<b>" + feature.properties.Reason + "</b>" + " concerns and was subsequently removed via " + "<b>" + feature.properties.Method + "</b>" + " methods. <BR><BR>Scientists have studied this removal and have published peer reviewed articles focusing on " +
-      "<b>" + feature.properties.Study + "</b>" + " repsonses." + "<BR><BR>" +
-      "<b>Research Article(s): </b><BR>" + "&emsp;(" + feature.properties.CitationYear + ")&nbsp" + "<a href=" + feature.properties.URL +">"+ feature.properties.CitationTitle +"</a>"
+      layer.bindPopup(
+        "Contributor: " + "<b>" + feature.properties.name + feature.properties.credentials "</b>" + "<BR>" +
+        "email: " + "<b>" + feature.properties.email + "</b>" + "<BR><BR>" +
+        "Title of Art Program: " + "<b>" + feature.properties.title + "</b>" + "<BR>" +
+        "Art Form(s): " + "<b>" + feature.properties.forms + "</b>" + "<BR>" +
+        "Location: " + "<b>" + feature.properties.address + "</b>" + "<BR>" +
+        "Dates: " + "<b>" + feature.properties.dates + "</b>" + "<BR><BR>" +
+        "Program or Experience Offered: " + "<b>" + feature.properties.narrative + "</b>" + "<BR>" +
+        "Therapeutic Outcomes: " + "<b>" + feature.properties.outcomes + "</b>" + "<BR>" +
+        "Selected Powerful Account: " + "<b>" + feature.properties.account + "</b>" + "<BR>" +
+        "Process of Creating, or Work Created " + "<b>" + feature.properties.account + "</b>" + "<BR>" +
+        "<b>Photos: </b><BR>" + "&emsp;(" + feature.properties.CitationYear + ")&nbsp" + "<a href=" + feature.properties.URL +">"+ feature.properties.CitationTitle +"</a>"
     );
   },
 
