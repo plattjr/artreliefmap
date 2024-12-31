@@ -337,7 +337,7 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
         "Therapeutic Outcomes: " + "<b>" + feature.properties.outcomes + "</b>" + "<BR><BR>" +
         "Selected Powerful Account: " + "<b>" + feature.properties.account + "</b>" + "<BR><BR>" +
         "Process of Creating, or Work Created: " + "<b>" + feature.properties.account + "</b>" + "<BR><BR>" +
-        "<b>Photos: </b><BR>" + "&emsp;(" + feature.properties.CitationYear + ")&nbsp" + "<a href=" + feature.properties.URL +">"+ feature.properties.CitationTitle +"</a>"
+        "<img src='images/" + feature.properties.img_name + "' width='350'/>"
     );
   },
 
