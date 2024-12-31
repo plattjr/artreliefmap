@@ -327,16 +327,17 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
   // The content of the popup window gives dam characteristics, etc.
   onEachFeature: function (feature, layer) {
       layer.bindPopup(
+        "Title of Art Program: " + "<b>" + feature.properties.title + "</b>" + "<BR>" +
         "Contributor: " + "<b>" + feature.properties.name + "</b>" + "<BR>" +
         "email: " + "<b>" + feature.properties.email + "</b>" + "<BR><BR>" +
-        "Title of Art Program: " + "<b>" + feature.properties.title + "</b>" + "<BR>" +
         "Art Form(s): " + "<b>" + feature.properties.forms + "</b>" + "<BR>" +
         "Location: " + "<b>" + feature.properties.address + "</b>" + "<BR>" +
         "Dates: " + "<b>" + feature.properties.dates + "</b>" + "<BR><BR>" +
-        "Program or Experience Offered: " + "<b>" + feature.properties.narrative + "</b>" + "<BR>" +
-        "Therapeutic Outcomes: " + "<b>" + feature.properties.outcomes + "</b>" + "<BR>" +
-        "Selected Powerful Account: " + "<b>" + feature.properties.account + "</b>" + "<BR>" +
-        "Process of Creating, or Work Created " + "<b>" + feature.properties.account + "</b>"
+        "Program or Experience Offered: " + "<b>" + feature.properties.narrative + "</b>" + "<BR><BR>" +
+        "Therapeutic Outcomes: " + "<b>" + feature.properties.outcomes + "</b>" + "<BR><BR>" +
+        "Selected Powerful Account: " + "<b>" + feature.properties.account + "</b>" + "<BR><BR>" +
+        "Process of Creating, or Work Created: " + "<b>" + feature.properties.account + "</b>" + "<BR><BR>" +
+        "<b>Photos: </b><BR>" + "&emsp;(" + feature.properties.CitationYear + ")&nbsp" + "<a href=" + feature.properties.URL +">"+ feature.properties.CitationTitle +"</a>"
     );
   },
 
