@@ -327,7 +327,7 @@ var dams = L.geoJson.ajax("assets/points.geojson",{
   // The content of the popup window gives dam characteristics, etc.
   onEachFeature: function (feature, layer) {
       layer.bindPopup(
-        "Contributor: " + "<b>" + feature.properties.name + feature.properties.credentials + "</b>" + "<BR>" +
+        "Contributor: " + "<b>" + feature.properties.name + "</b>" + "<BR>" +
         "email: " + "<b>" + feature.properties.email + "</b>" + "<BR><BR>" +
         "Title of Art Program: " + "<b>" + feature.properties.title + "</b>" + "<BR>" +
         "Art Form(s): " + "<b>" + feature.properties.forms + "</b>" + "<BR>" +
