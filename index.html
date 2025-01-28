@@ -1,521 +1,287 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Hurricane Helene Art Relief Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.0/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
-    <style>
-        html, body,
+	<meta charset=utf-8 />
+	<title>Hurricane Helene Art Relief Map</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-        #map {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            background: #0000000; }
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
 
-        .legend {
-            line-height: 40px;
-            font-size: 1.2em;
-    			  font-family: "Lora", serif;
-            width: 220px;
-            color: #ffffff;
-            padding: 8px 20px;
-            background: grey;
-            background: rgba(18,17,17,0.9);
-            box-shadow: 0 0 15px rgba(100,100,100,0.2);
-            border-radius: 5px;
-        }
+	<style>
 
-        .legend i {
-            width: 20px;
-            height: 20px;
-            float: left;
-            margin-right: 8px;
-            opacity: 1;
-        }
+		body {
+			margin: 0;
+			padding: 0;
+			background: "whitesmoke";
+			font-family: "Lora", serif;
+			color: #3d3d3d;
+		}
 
-        .legend img {
-            width: 20px;
-            height: 8px;
-            margin-right: 10px;
-            float: left;
-        }
+		h1 {
+			position: absolute;
+			left: 50px;
+			top: 10px;
+			padding: 8px 2%;
+			margin: 0;
+			background: rgba(0,0,0,0.2);
+			box-shadow: 0 0 15px rgba(0,0,0,0.5);
+			border-radius: 3px;
+			font-size: .9em;
+			z-index: 800;
+		}
 
-        .legend p {
-            font-size: 1.0em;
-            line-height: 25px;
-            margin: 0;
-        }
+		h2 {
+			font-family: "Lora", serif;
+			letter-spacing: .03em;
+			font-size: 1.3em;
+		}
 
-        body {
-          margin:0;
-          padding:0;
-    			font-family: "Lora", serif;
-          sans-serif;
-          }
+		h3 {
+			font-family: "Lora", serif;
+			letter-spacing: .04em;
+			font-size: 1.6em;
+			font-weight: bolder;
+		}
 
-        h1 {
-          position: absolute;
-          left: 50px;
-          top: 10px;
-          padding: 8px 2%;
-          margin: 0;
-          background: rgba(0,0,0,0.2);
-          box-shadow: 0 0 15px rgba(0,0,0,0.5);
-          border-radius: 3px;
-          font-size: .9em;
-          z-index: 800;
-        }
+    h4 {
+			font-family: "Lora", serif;
+			letter-spacing: .04em;
+		}
 
-        section {
-      			position: absolute;
-      			bottom: 0;
-      			left: 0px;
-            padding: 8px 2%;
-      			width: 25%;
-            height: 10%;
-            color: whitesmoke;
-            font-size: 13px;
-            background-color: rgba(0,0,0,0.0); /* Black w/ opacity */
-            overflow: auto;
-      			padding: 0 10px;
-      			border-radius: 3px;
-      			z-index: 800;
-      	}
+		b {
+			font-family: "Lora";
+			letter-spacing: .04em;
+			font-size: 1.1em;
+			font-weight: bold;
+			color: black;
+		}
 
-        section2 {
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            width: 15%;
-            height: 10%;
-            color: whitesmoke;
-            font-size: 13px;
-            background-color: rgba(0,0,0,0.0); /* Black w/ opacity */
-            overflow: auto;
-            padding: 0 0px;
-            border-radius: 3px;
-            z-index: 800;
-        }
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
 
+		section {
+				position: absolute;
+				bottom: 0;
+				left: 0px;
+				padding: 8px 2%;
+				width: 25%;
+				height: 10%;
+				color: whitesmoke;
+				font-size: 13px;
+				background-color: rgba(0,0,0,0.0); /* Black w/ opacity */
+				overflow: auto;
+				padding: 0 10px;
+				border-radius: 3px;
+				z-index: 800;
+		}
 
-        .subdiv {
-            position: absolute;
-            bottom: 0px;
-            font-size: 14px;
-        }
+		.subdiv {
+				position: absolute;
+				bottom: 0px;
+				font-size: 14px;
+		}
 
-        b {
-    			font-family: "Lora", serif;
-    			letter-spacing: .04em;
-          font-size: 1.1em;
-    		}
+		/* The Modal (background) */
+		.modal {
+			display: none; /* Hidden by default */
+			z-index: 1; /* Sit on top */
+			position: absolute;
+			bottom: 0;
+			left: 0px;
+			top: 0;
+			width: 25%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			-webkit-animation-name: fadeIn; /* Fade in the background */
+			-webkit-animation-duration: 0.6s;
+			animation-name: fadeIn;
+			animation-duration: 0.6s
+		}
 
-        h3 {
-    			font-family: "Lora", serif;
-    			letter-spacing: .04em;
-          font-size: 1.6em;
-    		}
+		/* Modal Content */
+		.modal-content {
+			position: fixed;
+			bottom: 0;
+			background-color: #fefefe;
+			width: 25%;
+			-webkit-animation-name: slideIn;
+			-webkit-animation-duration: 0.6s;
+			animation-name: slideIn;
+			animation-duration: 0.6s
+		}
 
-      	p {
-      			font-size: .9em;
-      			line-height: 1.5em;
-      	}
+		/* The Close Button */
+		.close {
+			color: white;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
 
-      	a {
-      			color: orange;
-      			text-decoration: none;
-      	}
+		.close:hover,
+		.close:focus {
+			color: grey;
+			text-decoration: none;
+			cursor: pointer;
+		}
 
-      	a:hover {
-            color: #EE7600;
-      			text-decoration: underline;
-      	}
+		/* modal styling */
+		.modal-header {
+			padding: 2px 16px;
+			background-color: black;
+			color: whitesmoke;
+		}
 
-        /* The Modal (background) */
-        .modal {
-          display: none; /* Hidden by default */
-          z-index: 1; /* Sit on top */
-          position: absolute;
-          bottom: 0;
-          left: 0px;
-          top: 0;
-          width: 25%; /* Full width */
-          height: 100%; /* Full height */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgb(0,0,0); /* Fallback color */
-          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-          -webkit-animation-name: fadeIn; /* Fade in the background */
-          -webkit-animation-duration: 0.6s;
-          animation-name: fadeIn;
-          animation-duration: 0.6s
-        }
+		.modal-body {
+			padding: 2px 16px;
+			background-color: black;
+			font-size: 16px;
+			color: lightgrey;
+		}
 
-        /* Modal Content */
-        .modal-content {
-          position: fixed;
-          bottom: 0;
-          background-color: #fefefe;
-          width: 25%;
-          -webkit-animation-name: slideIn;
-          -webkit-animation-duration: 0.6s;
-          animation-name: slideIn;
-          animation-duration: 0.6s
-        }
+		.modal-footer {
+			padding: 2px 16px;
+			background-color: black;
+			color: grey;
+		}
 
-        /* The Close Button */
-        .close {
-          color: white;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
+		p {
+				font-size: .9em;
+				line-height: 1.5em;
+		}
 
-        .close:hover,
-        .close:focus {
-          color: grey;
-          text-decoration: none;
-          cursor: pointer;
-        }
+    p.author {
+      font-size: 0.6em;
+      line-height: 1.5em;
+      color: grey;
+    }
 
-        .modal-header {
-          padding: 2px 16px;
-          background-color: black;
-          color: whitesmoke;
-        }
+		a {
+			color: lightblue;
+			text-decoration: none;
+		}
 
-        .modal-body {
-          padding: 2px 16px;
-          background-color: black;
-          font-size: 16px;
-          color: lightgrey;
-        }
+		a:hover {
+				color: darksalmon;
+				text-decoration: underline;
+		}
 
-        .modal-footer {
-          padding: 2px 16px;
-          background-color: black;
-          color: grey;
-        }
+		.leaflet-popup {
+			font-family: "Lora", serif;
+			letter-spacing: .06em;
+			width: 600px;
+		}
 
-        /* Add Animation */
-        @-webkit-keyframes slideIn {
-          from {bottom: -300px; opacity: 0}
-          to {bottom: 0; opacity: 1}
-        }
+		.leaflet-popup img {
+			max-width: 550px;
+			max-height: 500px;
+		}
 
-        @keyframes slideIn {
-          from {bottom: -300px; opacity: 0}
-          to {bottom: 0; opacity: 1}
-        }
+	</style>
 
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+	<script src="assets/points.js"></script> //points is loaded here.
+	<script src="assets/counties.js"></script> //counties is loaded here.
+	<script src="assets/states.js"></script> //states is loaded here.
 
-        #fcf-form {
-            display:block;
-            font-family: "Lora", serif;
-        }
-
-        #Message {
-            font-family: "Lora", serif;
-        }
-
-        .fcf-body {
-            margin: 0;
-    			  font-family: "Lora", serif;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            text-align: left;
-            background-color: #fff;
-            padding: 30px;
-            padding-bottom: 10px;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            max-width: 100%;
-        }
-
-        .fcf-form-group {
-            margin-bottom: 1rem;
-        }
-
-        .fcf-input-group {
-            position: relative;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            -ms-flex-align: stretch;
-            align-items: stretch;
-            width: 100%;
-        }
-
-        .fcf-form-control {
-            display: block;
-            width: 100%;
-            height: calc(1.5em + 0.75rem + 2px);
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            outline: none;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        .fcf-form-control:focus {
-            border: 1px solid #313131;
-        }
-
-        select.fcf-form-control[size], select.fcf-form-control[multiple] {
-            height: auto;
-        }
-
-        textarea.fcf-form-control {
-            font-family: -apple-system, Arial, sans-serif;
-            height: auto;
-        }
-
-        label.fcf-label {
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .fcf-credit {
-            padding-top: 10px;
-            font-size: 0.9rem;
-            color: #545b62;
-        }
-
-        .fcf-credit a {
-            color: #545b62;
-            text-decoration: underline;
-        }
-
-        .fcf-credit a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-
-        .fcf-btn {
-            display: inline-block;
-            font-weight: 400;
-            color: orange;
-            text-align: center;
-            vertical-align: middle;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-color: transparent;
-            border: 1px solid transparent;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: 0.25rem;
-            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .fcf-btn {
-                transition: none;
-            }
-        }
-
-        .fcf-btn:hover {
-            color: #212529;
-            text-decoration: none;
-        }
-
-        .fcf-btn:focus, .fcf-btn.focus {
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        .fcf-btn-primary {
-            color: white;
-            background-color: #EE7600;
-            border-color: orange;
-        }
-
-        .fcf-btn-primary:hover {
-            color: black;
-            background-color: orange;
-            border-color: #EE7600;
-        }
-
-        .fcf-btn-primary:focus, .fcf-btn-primary.focus {
-            color: #fff;
-            background-color: #0069d9;
-            border-color: #0062cc;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-        }
-
-        .fcf-btn-lg, .fcf-btn-group-lg>.fcf-btn {
-            padding: 0.5rem 1rem;
-            font-size: 1.25rem;
-            line-height: 1.5;
-            border-radius: 0.3rem;
-        }
-
-        .fcf-btn-block {
-            display: block;
-            width: 100%;
-        }
-
-        .fcf-btn-block+.fcf-btn-block {
-            margin-top: 0.5rem;
-        }
-
-        input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[type="button"].fcf-btn-block {
-            width: 100%;
-        }
-
-    </style>
-    <link href="https://fonts.googleapis.com/css?family=Helvetica" rel="stylesheet">
-    <script src="https://unpkg.com/leaflet@1.7.0/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
 </head>
+
 <body>
 
-<!-- web map and content will go here -->
-<div id="map"></div>
-
 <!-- logo will go here -->
-<h1><img src="assets/webmaplogo.svg" width="300"></h1>
+  <h1><img src="images/webmaplogo.svg" width="300"></h1>
 
-<!-- left section bar -->
-  <section>
+<!-- web map and content will go here -->
+	<div id='map'></div>
 
-    <div style="width: 100%;">
+	<!-- left section bar -->
+	  <section>
 
-      <div class="subdiv">
-        <!-- Trigger/Open The Modal -->
-        <div align="bottom">
-          <button onclick="document.getElementById('helpModal').style.display='block'" class="w3-button w3-black"><i class="fa-solid fa-circle-question"></i>&nbsp Help</button>
-          <button onclick="document.getElementById('infoModal').style.display='block'" class="w3-button w3-black"><i class="fa-solid fa-circle-info"></i></i>&nbsp Info</button>
-          <button onclick="document.getElementById('contactModal').style.display='block'" class="w3-button w3-black"><i class="fa-solid fa-envelope"></i></i></i>&nbsp Contact</button>
-        </div>
-        <!-- The Modal -->
-        <div id="helpModal" class="modal">
+	    <div style="width: 100%;">
 
-          <!-- Modal content -->
-          <div class="modal-content">
-            <div class="modal-header">
-              <span onclick="document.getElementById('helpModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-              <h3>How to Utilize the Removal Database</h3>
-            </div>
-            <div class="modal-body">
-              <p>The default boundaries within the United States are level 3 ecoregions. Hover over ecoregions to see names and click to zoom to the area. If you wish to change
-                boundary type, select between ecoregions, watersheds, and states in the top right of the screen.</p>
-              <p>After zooming to the ecoregion of interest (or before), click on points to see information regarding specific dam removals.  Data includes dam characteristics,
-                reasons for removal, links to associated peer-reviewed studies, and more.</p>
-              <p>Future products in the database will include information from engineering reports, river rights and the politics of removal by state, and watershed information at
-              the the HUC 8 and HUC 12 extents.</p>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
+	      <div class="subdiv">
+	        <!-- Trigger/Open The Modal -->
+	        <div align="bottom">
+	          <button onclick="document.getElementById('helpModal').style.display='block'" class="w3-button w3-black"><i class="fa-solid fa-circle-question"></i>&nbsp Help</button>
+	          <button onclick="document.getElementById('infoModal').style.display='block'" class="w3-button w3-black"><i class="fa-solid fa-circle-info"></i></i>&nbsp About the Art Relief Map</button>
+	        </div>
+	        <!-- The Modal -->
+	        <div id="helpModal" class="modal">
 
-        <div id="infoModal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <div class="modal-header">
-              <span onclick="document.getElementById('infoModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-              <h3>About the Database</h3>
-            </div>
-            <div class="modal-body">
-              <p>Dam Removals are becoming an increasingly proven tool to restore river health, improve public safety, revitalize fish and wildlife populations, safeguard cultural values and reconnect communities to their rivers.</p>
-                <p>American Rivers posts a "<a href="https://www.americanrivers.org/2022/02/new-report-alert-free-rivers-the-state-of-dam-removal-in-the-u-s/">State of Dam Removal in the US</a>" report
-                that highlights removals in the past year, as well as future removal projects.  The goal of this webmap is to provide a better visual and links to physical, biological, and water
-                quality peer-reviewd articles and reports to better understand ecological responses and why and how this removals benefit river health and communities.</p>
-              <p>By strategically using variables that influence a river system's recovery trajectory, the goal of this web map is to provide a tool for engineers,
-                policymakers, and scientific researchers to compare removals across the country to guide their work in potential future removal projects.</p>
-              <p><u>Data Sources</u>:<BR>
-                Dam Removal Data: <i><a href="https://www.americanrivers.org/DamRemovalDatabase">American Rivers</a>,
-                <a href="https://www.epa.gov/eco-research/level-iii-and-iv-ecoregions-continental-united-states">USGS</a>, and <a href="https://catalog.data.gov/dataset/national-inventory-of-dams-nid/resource/2ab4340e-ce7f-4481-b633-4f11f4e8b4f4">National Inventory of Dams</a>.</i><BR>
-                Watershed Data & Shapefile: <i><a href="https://www.epa.gov/wsio/wsio-indicator-data-library">EPA</a></i><BR>
-                Ecoregion Shapefile: <i><a href="https://www.epa.gov/eco-research/level-iii-and-iv-ecoregions-continental-united-states">EPA</a></i><BR>
-                Basemap: <i><a href="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'">ESRI</i></a>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
+	          <!-- Modal content -->
+	          <div class="modal-content">
+	            <div class="modal-header">
+	              <span onclick="document.getElementById('helpModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	              <h3>How to Utilize the Art Relief Map</h3>
+	            </div>
+	            <div class="modal-body">
+								<p>Hover over counties to see names and click to zoom to your area of interest. </p>
+	              <p>After zooming to the county of interest (or before), click on points to see information regarding specific art-based programming. Data includes location of programming,
+	                art form, personal narratives, outcomes, images, contact information, and more.</p>
+									<p>To contribute to this webmap, complete this <a href="https://docs.google.com/forms/d/1ocIQFlRscMBgEhwMeJPTupz5vJ7z7RIAc8sItDQEq48/edit">Google Form.</a>
+										If you have any questions, please email Kate Biddle at <a href="mailto:biddleks@appstate.edu">biddleks@appstate.edu</a></p><BR>
+	            </div>
+	            <div class="modal-footer">
+	            </div>
+	          </div>
+	        </div>
 
-        <div id="contactModal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <div class="modal-header">
-              <span onclick="document.getElementById('contactModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-              <h3>Contact</h3>
-            </div>
-            <div class="modal-body">
-              <p>
-                <p>
-                  If you spot any errors or would like to contribute data about a dam removal, please submit the form below!
-                </p>
-                <form id="fcf-form-id" class="fcf-form-class" method="POST" action="contactform.php">
-                        <label for="Name" class="fcf-label">Your name</label>
-                        <div class="fcf-input-group">
-                        <input type="text" id="Name" name="Name" class="fcf-form-control" required>
-                        </div>
-                    <div class="fcf-form-group">
-                        <label for="Email" class="fcf-label"><BR>Your email address</label>
-                        <div class="fcf-input-group">
-                            <input type="text" id="Email" name="Email" class="fcf-form-control" required>
-                        </div>
-                    <div class="fcf-form-group">
-                        <label for="Message" class="fcf-label"><BR>Your message</label>
-                        <div class="fcf-input-group">
-                            <textarea id="Message" name="Message" placeholder="Enter your message...." class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
-                        </div>
-                    </div>
-                    <div class="fcf-form-group">
-                        <button type="submit" name="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
-                    </div>
-                </form>
-              </p>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
+	        <div id="infoModal" class="modal">
+	          <!-- Modal content -->
+	          <div class="modal-content">
+	            <div class="modal-header">
+	              <span onclick="document.getElementById('infoModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	              <h3>About the Art Relief Map</h3>
+	            </div>
+	            <div class="modal-body">
+	              <p>The Art Relief Map is an online record of therapeutic art-based offerings that emerged organically in Western North Carolina, USA in the wake of the
+									devastation caused by Hurricane Helene in late September, 2024. The map visually depicts a topography of healing, providing geographic locations of art-based
+									programming and sharing stories of program development from facilitators' perspectives. Artifacts (art products and images) as well as artistic reflections
+									by facilitators are also provided. For any questions about the map or to contribute, please email Katie Biddle, <a href="mailto:biddleks@appstate.edu">biddleks@appstate.edu</a>.</p>
+	              <p><u>Data Sources</u>:<BR><BR>
+	                Art Locations (points): <i><a href="https://docs.google.com/forms/d/1ocIQFlRscMBgEhwMeJPTupz5vJ7z7RIAc8sItDQEq48/edit">Project Google Form</a></i><BR>
+	                Counties and States: <i><a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html">US. Census Bureau</a></i><BR>
+	                Basemap/Satellite Imagery: <i><a href="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'">ESRI</i></a>
+	            </div>
+	            <div class="modal-footer">
+	            </div>
+	          </div>
+	        </div>
 
-        </div>
-        </div>
-      </div>
-</section>
+	        </div>
+	        </div>
+	      </div>
+	</section>
 
-<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
-<script src="assets/points.js"></script> //poi is loaded here.
+	<script>
 
-<script>
-    // 1. Create a map object.
-    var mymap = L.map('map', {
-      center: [36.5, -81],
-      zoom: 8, //starting zoom level of the map
-      maxZoom: 18,//maximum zoom level
-      minZoom: 0,//minimum zoom level
-      detectRetina: true // detect whether the sceen is high resolution or not.
-});
+//options to be used when creating the map
+		var options = {
+			center: [36.1, -82.15],
+			zoom: 10
+		}
 
-// 2. Add a base map.
+//creation of the Leaflet map
+var map = L.map('map', options);
+
+//request to load basemap
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-}).addTo(mymap);
+}).addTo(map);
 
-//add points to map
+
+//add points
 var points = L.geoJSON(points, {
   filter: function (feature) {
     if (feature.geometry.type == "Point") {
@@ -525,25 +291,59 @@ var points = L.geoJSON(points, {
 
   onEachFeature: function (feature, layer) {
     layer.bindPopup(
-      "<h2>" +
+      "<h3>" +
         feature.properties.title +
-        "</h2><h4>" +
-				"Contributor: " + feature.properties.name  + "<BR>" +
-        "email: " + feature.properties.email + "<BR><BR>" +
-        "Art Form(s): " + feature.properties.forms + "<BR>" +
-        "Location: " + feature.properties.address + "<BR>" +
-        "Dates: " + feature.properties.dates + "<BR><BR>" +
-				"Program or Experience Offered: " + feature.properties.narrative + "<BR><BR>" +
-				"Therapeutic Outcomes: " + feature.properties.outcomes + "<BR><BR>" +
-        "<img src='" +
-        feature.properties.img_name +
-        "'/>",
+        "</h3>" +
+        "<b>" + "Contributor: " + "</b>" + feature.properties.name + "<BR>" +
+        "<b>" + "email: " + "</b>" + feature.properties.email + "<BR><BR>" +
+        "<b>" + "Art Form(s): " + "</b>" + feature.properties.forms + "<BR>" +
+        "<b>" + "Location: " + "</b>" + feature.properties.address + "<BR>" +
+        "<b>" + "Dates: " + "</b>" + feature.properties.dates + "</b>" + "<BR><BR>" +
+        "<b>" + "Program or Experience Offered: " + "</b>" + feature.properties.narrative + "<BR><BR>" +
+        "<b>" + "Therapeutic Outcomes: " + "</b>" + feature.properties.outcomes + "<BR><BR>" +
+        "<img src='" + feature.properties.img_name + "'/>",
       {
         maxWidth: "auto",
       }
     );
   },
 }).addTo(map);
+
+
+// 7. Add Counties
+
+function zoomToFeature(e) {
+    mymap.fitBounds(e.target.getBounds());
+  }
+
+var counties = L.geoJson(counties, {
+  onEachFeature: function (feature, layer) {
+      layer.bindTooltip(feature.properties.NAME);
+      layer.on ({click: zoomToFeature});
+  },
+    style: style
+}).addTo(map);
+
+
+// 8. Add States
+
+var states = L.geoJson.ajax("assets/states.geojson", {
+	style: function(feature) {
+		return {
+      			fillColor: setColor(feature.properties.Dams), // or use: setColor(feature.properties.Dams),
+			fillOpacity: 0,
+			weight: 3,
+			color: '#CB9D06',
+			opacity: 0.4,
+			dashArray: "0"
+		}
+	}
+}).addTo(map);
+
+
+// create the credits
+map.attributionControl.addAttribution('Satellite Imagery Basemap &copy; <a href="http://census.gov/">ESRI</a> | Map Author: Josh Platt');
+
 
 
 // Get the modal
@@ -567,6 +367,10 @@ window.onclick = function(event) {
   }
 }
 
-</script>
+
+	</script>
+
 </body>
+
 </html>
+
