@@ -180,7 +180,7 @@
 		.leaflet-popup {
 			font-family: "Lora", serif;
 			letter-spacing: .06em;
-			width: 600px;
+			width: 700px;
 		}
 
 		.leaflet-popup img {
@@ -192,6 +192,7 @@
 
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+	<script src="/js/leaflet-0.7.2/leaflet.ajax.min.js"></script>
 	<script src="assets/points.js"></script> //points is loaded here.
 	<script src="assets/counties.js"></script> //counties is loaded here.
 	<script src="assets/states.js"></script> //states is loaded here.
@@ -263,15 +264,20 @@
 	        </div>
 	        </div>
 	      </div>
-	</section>
+			</section>
+		<!-- end left section bar -->
 
-	<script>
+
+<script>
 
 //options to be used when creating the map
-		var options = {
-			center: [36.1, -82.15],
-			zoom: 10
-		}
+var options = {
+	center: [36.1, -82.15],
+	zoom: 9,
+	maxZoom: 18,//maximum zoom level
+	minZoom: 0,//minimum zoom level
+	detectRetina: true // detect whether the sceen is high resolution or not.
+}
 
 //creation of the Leaflet map
 var map = L.map('map', options);
@@ -311,26 +317,23 @@ var points = L.geoJSON(points, {
 
 
 // 7. Add Counties
-
-function zoomToFeature(e) {
-    mymap.fitBounds(e.target.getBounds());
-  }
-
-var counties = L.geoJson(counties, {
-  onEachFeature: function (feature, layer) {
-      layer.bindTooltip(feature.properties.NAME);
-      layer.on ({click: zoomToFeature});
-  },
-    style: style
+L.geoJson(counties, {
+	style: function(feature) {
+		return {
+			fillOpacity: 0,
+			weight: 0.8,
+			color: 'lightgrey',
+			opacity: 0.4,
+			dashArray: "0"
+		}
+	}
 }).addTo(map);
 
 
-// 8. Add States
-
-var states = L.geoJson.ajax("assets/states.geojson", {
+// 8. add states
+L.geoJson(states, {
 	style: function(feature) {
 		return {
-      			fillColor: setColor(feature.properties.Dams), // or use: setColor(feature.properties.Dams),
 			fillOpacity: 0,
 			weight: 3,
 			color: '#CB9D06',
@@ -373,4 +376,3 @@ window.onclick = function(event) {
 </body>
 
 </html>
-
